@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Triim</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card-text {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .card:hover .card-text {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .card {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-blue-100 to-blue-300 text-gray-800">
+
+  <!-- Header -->
+  <section id="home" class="pt-24 p-10 fade-in bg-white">
+    <div class="flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto">
+
+      <div class="w-full md:w-1/2 text-center md:text-left z-10">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-blue-800">Descubra lugares incríveis com a Triim</h2>
+        <p class="text-lg md:text-xl text-gray-600 mb-6">Viagens personalizadas para todos os estilos de aventureiros
+        </p>
+        <a href="#destinos"
+          class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full shadow hover:bg-blue-700 transition">Explorar
+          Destinos</a>
+      </div>
+
+      <div class="w-full md:w-2xl relative h-64 md:h-96 rounded-xl overflow-hidden mt-10 md:mt-0">
+        <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover">
+          <source src="src/bgvideo.mp4" type="video/mp4" />
+          Seu navegador não suporta vídeos HTML5.
+        </video>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Destinos -->
+  <section id="destinos" class="py-20 px-6 bg-white fade-in">
+    <div class="text-center mb-10">
+      <h3 class="text-3xl font-bold text-blue-600">Destinos Populares</h3>
+      <p class="text-gray-600 mt-2">Escolha seu próximo destino de sonho</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto" id="cards-container"></div>
+  </section>
+
+  <section id="contato">
+    <div class="text-center py-10">
+      <h3 class="text-3xl font-bold text-blue-600">Pronto para a sua próxima aventura?</h3>
+      <p class="text-gray-600 mt-2">Entre em contato e comece a planejar sua viagem dos sonhos!</p>
+      <a href="#contato"
+        class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full shadow hover:bg-blue-700 transition mt-4">Fale
+        Conosco</a>
+    </div>
+  </section>
+
+  <footer class="bg-blue-900 text-white py-6 text-center">
+    <p class="text-sm">&copy; 2023 Triim Viagens. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    const destinos = [
+      {
+        id: 1,
+        nome: "Paris - França",
+        descricao: "Romance e cultura na cidade luz",
+        imagem: "https://i.pinimg.com/736x/a6/5b/87/a65b8711fd3ec6fa6e7fca4e9d8578f5.jpg",
+        preco: "R$ 5.999,00"
+      },
+      {
+        id: 2,
+        nome: "Bali - Indonésia",
+        descricao: "Natureza exuberante e tranquilidade",
+        imagem: "https://i.pinimg.com/736x/9d/12/6b/9d126b19b5f9e01863e4a29b92d8d5f3.jpg",
+        preco: "R$ 7.499,00"
+      },
+      {
+        id: 3,
+        nome: "Rio de Janeiro - Brasil",
+        descricao: "A cidade maravilhosa te espera",
+        imagem: "https://i.pinimg.com/736x/e7/0b/e3/e70be3df408e19f8bb7e93a3db013181.jpg",
+        preco: "R$ 3.299,00"
+      },
+      {
+        id: 4,
+        nome: "Tóquio - Japão",
+        descricao: "Tecnologia e tradição lado a lado",
+        imagem: "https://i.pinimg.com/736x/a4/7c/1e/a47c1eb40e20701fe3eeca30515b876c.jpg",
+        preco: "R$ 9.999,00"
+      },
+      {
+        id: 5,
+        nome: "Nova York - Estados Unidos",
+        descricao: "A cidade que nunca dorme",
+        imagem: "https://i.pinimg.com/736x/b7/f9/3f/b7f93ffbc3c6b594b9286bc688861bd0.jpg",
+        preco: "R$ 6.799,00"
+      },
+      {
+        id: 6,
+        nome: "Sydney - Austrália",
+        descricao: "Belezas naturais e vida urbana",
+        imagem: "https://i.pinimg.com/736x/4c/49/75/4c497530e4aaca38ef7da0855cb3f58c.jpg",
+        preco: "R$ 8.499,00"
+      },
+      {
+        id: 7,
+        nome: "Roma - Itália",
+        descricao: "História e gastronomia de tirar o fôlego",
+        imagem: "https://i.pinimg.com/736x/79/b1/6d/79b16d0b69650d287185d77755665547.jpg",
+        preco: "R$ 5.499,00"
+      },
+      {
+        id: 8,
+        nome: "Cancún - México",
+        descricao: "Praias paradisíacas e festas animadas",
+        imagem: "https://i.pinimg.com/736x/9a/bc/3e/9abc3eae1da47b8c4edfa6b4825b0786.jpg",
+        preco: "R$ 6.299,00"
+      },
+      {
+        id: 9,
+        nome: "Cidade do Cabo - África do Sul",
+        descricao: "Natureza selvagem e cultura vibrante",
+        imagem: "https://i.pinimg.com/736x/b8/70/84/b870842d75aafb0b994fe47838f6f076.jpg",
+        preco: "R$ 7.999,00"
+      }
+    ];
+
+    function criarCards() {
+      const container = document.getElementById('cards-container');
+
+      destinos.forEach(destino => {
+        const card = document.createElement('div');
+        card.className = 'relative rounded-xl shadow hover:shadow-lg transition fade-in h-48 md:h-64 overflow-hidden card';
+        card.innerHTML = `
+          <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('${destino.imagem}')"></div>
+          <div class="absolute inset-0 bg-black bg-opacity-50 rounded-xl flex flex-col justify-end p-6 text-white card-text">
+            <h4 class="text-xl font-bold">${destino.nome}</h4>
+            <p class="text-gray-200">${destino.descricao}</p>
+            <p class="mt-2 font-semibold">${destino.preco}</p>
+          </div>
+        `;
+
+        card.addEventListener('click', () => {
+          window.location.href = `compra.html?id=${destino.id}`;
+        });
+
+        container.appendChild(card);
+      });
+    }
+
+    function observarElementos() {
+      const elementos = document.querySelectorAll('.fade-in');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      elementos.forEach(elemento => {
+        observer.observe(elemento);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      criarCards();
+      observarElementos();
+    });
+  </script>
+
+</body>
+
+</html>
